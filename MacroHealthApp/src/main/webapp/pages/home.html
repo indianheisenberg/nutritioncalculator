@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Clothing App</title>
+<script src="../dist/angularjs/angular.js"></script>
+<script src="../dist/angularjs/angular-route.js"></script>
+<script src="../dist/angularjs/angular-cookies.js"></script>
+
+<script type="text/javascript" src="../dist/user/js/Application.js"></script>
+<script type="text/javascript" src="../dist/user/js/Controllers.js"></script>
+<script type="text/javascript" src="../dist/user/js/LoginController.js"></script>
+
+
+
+<link rel="stylesheet" href="../dist/user/css/style.css">
+<link rel="stylesheet" href="../dist/bootstrap/css/bootstrap.css">
+<script src="../dist/jquery/jquery-1.11.3.min.js"></script>
+<style>
+img {
+    border-radius: 25px 50px;
+    border:1px solid #021a40;
+    background-color:#ff0;
+}
+body{
+   background-color: white;
+   
+}
+img:hover {
+    border-radius: 15px 50px;
+    box-shadow: 6px 6px 6px pink;
+			-moz-box-shadow: 6px 6px 2px pink;
+			-webkit-box-shadow: 6px 6px 2px pink;
+			-khtml-box-shadow: 6px 6px 2px pink;
+			padding:1px;
+   border:2px solid brown;
+   background-color:pink;
+}
+
+
+</style>
+
+
+
+</head>
+<body ng-app="Application"  ng-controller="ProductsController" >
+<nav class="navbar navbar-default" >
+<div class="container-fluid" ng-init="fetchAllProduct()" >
+
+<!-- navigation bar starts---------------------------------------------------------->
+
+
+
+<div class="container-fluid">
+ <div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" 
+  data-target="#mynav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+   </button>
+ <a href="#" class="navbar-brand" style="font-family: cursive;">The Clothing App</a>
+ </div>
+ <div class="collapse navbar-collapse" id="mynav-collapse">
+   <ul class="nav navbar-nav ">
+        <li class="active"><a href="home.html">Home</a></li>
+        
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+       <li><a href="#/" >Welcome<span  style=" font-weight: bold;"> {{userName}}</span></a></li>
+        <li><a href="#/" ng-click="about()">About us </a></li>
+        <li><a href="#/" ng-click="contact()">Contact</a></li>
+        <li><a href="Login.html" class="logout-text">Logout</a></li>
+    </ul>
+    </div>
+</div>
+</div>
+</nav>
+
+<!-- navigation bar ends ----------------------------------------------------------->
+<!---------------------------------- search --------------------------- -->
+	
+		
+		
+		<div class="col-md-3" style="color: black;">
+		<form class="form-inline">
+				<label style="color: black;">Select View:</label>
+		
+				<select ng-model="view"  class="form-control" >
+					<option value="" >Default</option>
+					<option value="Grid" >Grid View</option>
+					<option value="List" >List View</option>
+				</select>
+			</form>	
+	</div>
+		<form  >
+			<div class="form-group">
+				<div class="col-md-5">
+					<input type="text" name="searchbar" ng-model="search" placeholder="Enter Product Parameters:" class="form-control">
+				
+					
+				</div>
+			
+				
+			</div>
+		</form>
+		<div class="col-md-3 col-md-offset-1">
+			<form class="form-inline" >
+			<div class="form-group">
+				<label style="color: black;">Sort By:</label>
+				
+				<select ng-model="input"  class="form-control"  >
+					<option value="">Trending</option>
+					<option value="High" >Price High to Low</option>
+					<option value="Low" >Price Low to High</option>
+				</select>
+				
+			
+			</div>
+		</form>
+		</div>
+	
+	</div>
+	<br><br><br>
+	
+
+		<div class="col-md-2 filterbackground" style="padding:5; height:100%; overflow-y: scroll; background-color: #DCDCDC">
+
+		
+		
+		
+		
+		
+		<div>
+		<label style="background-color: brown; padding-right: 10px;"  class="badge" >Price Range:</label>
+		
+		<div class="form-group">
+		
+			<div class="checkbox-inline">
+					<label><input type="checkbox" id="range" name="pricerange" ng-model="priceRange[0]" ng-true-value="'low'"
+						ng-false-value="false"
+						ng-change="priceFilter();filterAll()" style="font-family:serif;color: #331a00; font-weight: bold;" ><label style="font-family:serif;color: #331a00; font-weight: bold;">0-500</label></label><br>
+				
+
+					
+						<label><input type="checkbox" name="pricerange" ng-model="priceRange[1]" ng-true-value="'med'"
+							ng-false-value="false"
+							ng-change="priceFilter();filterAll()"><label style="font-family:serif;color: #331a00; font-weight: bold;">500-2000</label></label><br>
+					
+
+					
+						<label><input type="checkbox" name="pricerange" ng-model="priceRange[2]" ng-true-value="'high'"
+							ng-false-value="false"
+							ng-change="priceFilter();filterAll()" ><label style="font-family:serif;color: #331a00; font-weight: bold;">2000+</label></label>
+					</div>
+			<button type="reset" ng-show="clearPrice" class="btn btn-info" ng-click="clearPriceFilter();filterAll()">Reset Price Filter</button>
+			</div>
+		</div>
+		<div>
+		<label style="background-color: brown" class="badge">Brands:</label>
+		<div class="checkbox-inline">
+		<div ng-repeat="item in dynamicbrandlist|orderBy"  >
+			
+		
+
+	<input type="checkbox" name="brand"   ng-model="brand[$index]"    ng-true-value="'{{item}}'" ng-false-value="false"  ng-change="brandFilter();filterAll()" ><label style="font-family:serif;color: #331a00; font-weight: bold;">{{item}}</label><br>
+
+		</div>
+		</div>
+		<button type="reset" ng-show="clearBrand" class="btn btn-info" ng-click="clearBrandFilter();filterAll()">Reset Brand Filter</button><br><br>
+		</div>
+		<div>
+		<label style="background-color: brown" class="badge">Discount:</label>
+		
+		<div class="form-group">
+		<div class="checkbox-inline">
+			
+				<label><input type="checkbox" name="discountFilter" ng-model="discount[0]" ng-true-value="'<5'" ng-false-value="false" ng-change="filterAll();discountFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">less than 5%</label></label><br>
+			
+
+			
+				<label><input type="checkbox" name="discountFilter" ng-model="discount[1]" ng-true-value="'5-10'" ng-false-value="false" ng-change="filterAll();discountFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">5% to 10%</label></label><br>
+		
+			
+				<label><input type="checkbox" name="discountFilter" ng-model="discount[2]" ng-true-value="'10-20'" ng-false-value="false" ng-change="filterAll();discountFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">10% to 20%</label></label>
+			
+			</div>
+			<button type="reset" ng-show="clearDiscount" class="btn btn-info" ng-click="clearDiscountFilter();filterAll()">Reset Discount Filter</button>		 
+		</div>
+		
+		</div>
+		<label style="background-color: brown" class="badge">Type:</label>
+		
+		<div class="form-group">
+		<div class="checkbox-inline">
+			<div ng-repeat="item in dynamictypelist|orderBy" >
+				<input type="checkbox" name="typeFilter" ng-model="type[$index]" ng-true-value="'{{item}}'" ng-false-value="false" ng-change="filterAll();typeFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">{{item}}<br></label>
+			</div>
+</div>
+			
+			<button type="reset" ng-show="cleartype" class="btn btn-info" ng-click="clearTypeFilter();filterAll()">Reset Type Filter</button>		 
+		</div>
+
+		
+		
+		
+		<label style="background-color: brown" class="badge">Size:</label>
+		<div class="form-group">
+			<div class="checkbox-inline">
+				<input type="checkbox" name="sizeFilter" ng-model="size[0]" ng-true-value="'SMALL'" ng-false-value="false" ng-change="filterAll();sizeFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">Small</label><br>
+				<input type="checkbox" name="sizeFilter" ng-model="size[1]" ng-true-value="'MEDIUM'" ng-false-value="false" ng-change="filterAll();sizeFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">Medium<br></label><br>
+				<input type="checkbox" name="sizeFilter" ng-model="size[2]" ng-true-value="'LARGE'" ng-false-value="false" ng-change="filterAll();sizeFilter()"><label style="font-family:serif;color: #331a00; font-weight: bold;">Large<br></label><br>
+			</div>
+
+			
+			<button type="reset" ng-show="clearsize" class="btn btn-info" ng-click="clearSizeFilter();filterAll()">Reset Size Filter</button>		 
+		</div>
+		
+		<div >
+		<label style="background-color: brown" class="badge">Gender:</label>
+		
+		<div class="form-group">
+		<div >
+			
+
+				<input type="checkbox" name="gender" ng-model="gender[0]" ng-true-value="'MEN'" ng-false-value="'false'"  ng-change="genderFilter();filterAll()"><label style="font-family:serif;color: #331a00; font-weight: bold;">  &nbsp;Male&nbsp;</label>
+				<input type="checkbox"  name="gender" ng-model="gender[1]"  ng-true-value="'WOMEN'" ng-false-value="'false'" ng-change="genderFilter();filterAll()"><label style="font-family:serif;color: #331a00; font-weight: bold;"> &nbsp;Female&nbsp;</label>
+
+				
+			<button type="reset" ng-show="clearGender" class="btn btn-info" ng-click="clearGenderFilter();filterAll()">Reset Gender Filter</button>
+		</div>
+		
+		</div>
+		</div>
+		</div>
+		
+		
+		
+		
+<!-- -------------------------------------------------products --------------------------------------- -->
+
+		<div class="col-md-10 ">
+		
+		</div>
+
+	
+		<div class="col-md-10" >
+            <div class="row " ng-if="(input!='Low'&& input!='High') &&(view!='Grid'&& view!='List')" > 
+               <div ng-repeat="item in allProductList|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='High'&&(view!='Grid'&& view!='List')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':true|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180"onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              
+             <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='High'&&(view=='Grid')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':true|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='High'&&(view=='List')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':true|filter:search">
+              <div  class="col-md-3 col-md-offset-4">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="300" height="500" onmouseover="this.width='220',this.height='550'" onmouseout="this.width='300',this.height='500'"></a>
+              
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='Low'&&(view!='Grid'&& view!='List')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':false|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='Low'&&(view=='Grid')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':false|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="input=='Low'&&(view=='List')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':false|filter:search">
+              <div  class="col-md-3 col-md-offset-4">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="300" height="500" onmouseover="this.width='320',this.height='550'" onmouseout="this.width='300',this.height='500'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="(input!='High' && input!='Low')&&(view=='Grid')" > 
+               <div ng-repeat="item in allProductList|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="(input!='High' && input!='Low')&&(view=='List')" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':false|filter:search">
+              <div  class="col-md-4 col-md-offset-4">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="300" height="500" onmouseover="this.width='320',this.height='550'" onmouseout="this.width='300',this.height='500'"></a><br>
+              <div >
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+              </div>
+              
+
+</div>
+</div>
+<div class="col-md-8">
+              <div ng-show="!((allProductList|filter:search).length)">
+              <h3 style="color: gray;"><div align="center">Sorry! No Items Found</div></h3>
+              
+              </div>
+</div>
+</body>
+</html>
+
+

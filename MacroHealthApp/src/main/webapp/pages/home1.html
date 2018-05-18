@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Clothing App</title>
+<script src="../dist/angularjs/angular.js"></script>
+<script src="../dist/angularjs/angular-route.js"></script>
+<script src="../dist/angularjs/angular-cookies.js"></script>
+
+<script type="text/javascript" src="../dist/user/js/Application.js"></script>
+<script type="text/javascript" src="../dist/user/js/Controllers.js"></script>
+<script type="text/javascript" src="../dist/user/js/LoginController.js"></script>
+
+
+
+<link rel="stylesheet" href="../dist/user/css/style.css">
+<link rel="stylesheet" href="../dist/bootstrap/css/bootstrap.css">
+<script src="../dist/jquery/jquery-1.11.3.min.js"></script>
+<style>
+img {
+    border-radius: 25px 50px;
+    border:1px solid #021a40;
+    background-color:#ff0;
+}
+body{
+   background-color: white;
+   
+}
+img:hover {
+    border-radius: 15px 50px;
+    box-shadow: 6px 6px 6px pink;
+			-moz-box-shadow: 6px 6px 2px pink;
+			-webkit-box-shadow: 6px 6px 2px pink;
+			-khtml-box-shadow: 6px 6px 2px pink;
+			padding:1px;
+   border:2px solid brown;
+   background-color:pink;
+}
+
+
+</style>
+
+
+
+</head>
+<body >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<!-- navigation bar ends ----------------------------------------------------------->
+<!---------------------------------- search --------------------------- -->
+	
+		
+		
+		<div class="col-md-3" style="color: black;">
+		<form class="form-inline">
+				<label style="color: black;">Select View:</label>
+		
+				<select ng-model="view"  class="form-control" >
+					<option value="" >Default</option>
+					<option value="Grid" >Grid View</option>
+					<option value="List" >List View</option>
+				</select>
+			</form>	
+	</div>
+		<form  >
+			<div class="form-group">
+				<div class="col-md-5">
+					<input type="text" name="searchbar"  placeholder="Enter Product Parameters:" class="form-control">
+				
+					
+				</div>
+			
+				
+			</div>
+		</form>
+		<div class="col-md-3 col-md-offset-1">
+			
+		</div>
+	
+
+	<br><br><br>
+	
+
+		<div class="col-md-2 " >
+
+		</div>
+		
+		
+		
+		
+<!-- -------------------------------------------------products --------------------------------------- -->
+
+		<div class="col-md-10 ">
+		
+		<div class="card" style="width: 20rem;">
+  <img class="card-img-top" src="../dist/user/img/paneer.jpg" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title">Card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+		
+		</div>
+
+
+
+	
+		<div class="col-md-10" >
+            <div class="row " ng-if="view!='Grid'&& view!='List'" > 
+               <div ng-repeat="item in allProductList|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#" ng-click="">
+              <img  ng-src="" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+
+<div class="col-md-10" >
+            <div class="row " ng-if="view=='Grid'" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':true|filter:search">
+              <div  class="col-md-3 col-md-offset-1">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="200" height="180" onmouseover="this.width='220',this.height='200'" onmouseout="this.width='200',this.height='180'"></a>
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+<div class="col-md-10" >
+            <div class="row " ng-if="view=='List'" > 
+               <div ng-repeat="item in allProductList|orderBy:'sellingPrice':true|filter:search">
+              <div  class="col-md-3 col-md-offset-4">
+              <a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+              <img  ng-src="{{item.image}}" alt="source not found" class="img-thumbnail img-responsive" width="300" height="500" onmouseover="this.width='220',this.height='550'" onmouseout="this.width='300',this.height='500'"></a>
+              
+              <div style="padding-bottom:5px; border:5px; color: #660000; font-weight: bold; font-size: small;" > <br>{{item.name}}
+              <span>&nbsp;by&nbsp;</span><span style="color:#4000ff; font-weight: bolder;">{{item.brand}}</span></div>
+              <b>Price:</b>
+           <div class="badge" style="background-color: red;">Rs:<span style="color: white;  text-decoration: line-through; text-align: right;">{{item.sellingPrice}}</span></div>
+         <br>
+         <div>  <b>Discounted Price:</b>
+          &nbsp;&nbsp;&nbsp;&nbsp;<p style="color: white; background-color: green;" class="badge"><b>Rs.</b>{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}/-</p></div>
+          <div style="color: black;"><center><b>Specifications:</b></center><div style="font-family:serif; font-size: small; color: #331a00; font-weight: bold;">{{item.specification}}</div> <br>
+              
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-8">
+              <div ng-show="!((allProductList|filter:search).length)">
+              <h3 style="color: gray;"><div align="center">Sorry! No Items Found</div></h3>
+              
+              </div>
+</div>
+</body>
+</html>
+
+

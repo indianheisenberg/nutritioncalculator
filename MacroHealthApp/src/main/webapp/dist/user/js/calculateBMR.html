@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+
+function calculate(){
+	
+	var form=document.getElementById('form');
+	
+	var age=document.getElementById('age').value;
+	var gender=document.getElementById('gender').value;
+	var height=document.getElementById('height').value;
+	var weight=document.getElementById('weight').value;
+	
+	var bmr=null;
+	console.log(age);
+	
+
+	
+	if(gender=='male' || gender=='Male'){
+		bmr=(10*weight)+(6.25*height)-(5*age)+5;
+		
+	}
+	if(gender=='Female' || gender=='female'){
+		bmr=(10*weight)+(6.25*height)-(5*age)-161;
+	}
+	
+	document.getElementById("bmr").innerHTML = bmr;
+	
+}
+
+
+</script>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+	rel="stylesheet">
+<link rel="stylesheet" href="../dist/user/css/style.css">
+<link rel="stylesheet" href="../dist/user/css/mdb.min.css">
+<link rel="stylesheet"
+	href="../dist/bootstrap/dist/css/bootstrap.min.css">
+<script src="../dist/jquery/jquery-1.11.3.min.js"></script>
+<script src="../dist/bootstrap/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="../dist/vendor/font-awesome/css/font-awesome.min.css">
+
+
+<!-- angular js -->
+
+<script src="../dist/angularjs/angular.js"></script>
+<script src="../dist/angularjs/angular-route.js"></script>
+<script src="../dist/angularjs/angular-cookies.js"></script>
+
+<!-- user scripts -->
+
+<script type="text/javascript" src="../dist/user/js/Application.js"></script>
+<script type="text/javascript" src="../dist/user/js/Controllers.js"></script>
+<script type="text/javascript" src="../dist/MDB-Free/js/mdb.min.js"></script>
+
+
+
+</head>
+<body ng-controller="HomepageController">
+
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		style="height: 80px">
+		<a class="navbar-brand" href="#"
+			style="font-size: 25px; margin-left: 20px; font-weight: 400;">Nutrition
+			Calculator</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+
+
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+
+
+
+
+
+				<!-- Default form subscription -->
+				<form id="form">
+					<p class="h4 text-center py-4">Calculate BMR</p>
+
+					<!-- Default input name -->
+					<label for="gender" class="grey-text font-weight-light">Gender</label> <input
+						type="text" id="gender" class="form-control" placeholder="Male/Female"> <br>
+					<label for="age" class="grey-text font-weight-light">Age</label> <input
+						type="text" id="age" class="form-control" placeholder="in years"> <br> <label
+						for="weight" class="grey-text font-weight-light">Weight</label> <input
+						type="text" id="weight" class="form-control" placeholder="in Kg"> <br> <label
+						for="height" class="grey-text font-weight-light" >Height</label> <input
+						type="text" id="height" class="form-control" placeholder="in cm"> 
+
+
+					<div class="text-center py-4 mt-3">
+						<button class="btn btn-outline-purple" type="submit" onclick="calculate()">
+							Calculate BMR<i class="fa fa-calculator ml-2"></i>
+						</button>
+					</div>
+				</form>
+				<!-- Default form subscription -->
+
+
+
+
+
+
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-4" style="margin-top: 220px">
+
+				<div class="card">
+
+					<div class="card-body" style="text-align: left">
+					
+					
+					
+					BMR: <span id="bmr"></span>
+					
+					</div>
+
+
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<!--Footer-->
+	<footer class="page-footer font-small light-blue pt-4 mt-4">
+
+		<!--Footer Links-->
+		<div class="container-fluid ">
+			<div class="row">
+
+				<!--First column-->
+				<div class="col-md-6">
+					<h5 class="text-uppercase">Nutrition Calculator</h5>
+					<p>We provide tools to search for nutrition content in food
+						items, build diet plans, provide health tips and much more. And it
+						is absolutely free.</p>
+				</div>
+				<!--/.First column-->
+
+				<!--Second column-->
+				<div class="col-md-6">
+					<h5 class="text-uppercase">Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="#!">About Us</a></li>
+						<li><a href="#!">Services</a></li>
+						<li><a href="#!">Free tools</a></li>
+						<li><a href="#!">Contact Us</a></li>
+					</ul>
+				</div>
+				<!--/.Second column-->
+			</div>
+		</div>
+		<!--/.Footer Links-->
+
+		<!--Copyright-->
+		<div class="footer-copyright py-3 text-center">
+			© 2018 Copyright: <a href="http://www.ashishagrawal.xyz"
+				target="_blank"> Ashish Agrawal </a>
+		</div>
+		<!--/.Copyright-->
+
+	</footer>
+	<!--/.Footer-->
+
+
+
+</body>
+</html>

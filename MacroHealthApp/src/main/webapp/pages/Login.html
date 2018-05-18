@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Clothing App</title>
+
+<script src="../dist/angularjs/angular.js"></script>
+<script src="../dist/angularjs/angular-route.js"></script>
+<script src="../dist/angularjs/angular-cookies.js"></script>
+
+
+
+
+<script type="text/javascript" src="../dist/user/js/LoginController.js"></script>
+
+<link rel="stylesheet" href="../dist/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../dist/user/css/style.css">
+
+
+
+
+</head>
+<body ng-app="loginModule" ng-controller="LoginController" style="background-image: url('../dist/user/img//Desert.jpg');">
+
+<div class="container-fluid indexpage">
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4 bordering" >
+
+<form ng-submit="submitLogin()" >
+<div class="form-group">
+<label><span>User Name:</span></label>
+<input class="form-control" type="text" placeholder="Enter User Name" required="required" ng-model="loginForm.userName">
+
+</div>
+<div class="form-group">
+<label><span>Password:</span></label>
+<input class="form-control" type="password" placeholder="Enter Password" required="required" ng-model="loginForm.password">
+
+</div>
+<input type="submit" value="Login" class="btn btn-primary">
+
+</form>
+<div ng-bind="loginForm.message" class="text-danger" style="font-weight: bold;"></div>
+
+</div>
+
+
+
+
+
+</div>
+</div>
+</body>
+</html>

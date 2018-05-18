@@ -1,0 +1,111 @@
+/* CSS Document */
+html, body {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	
+}
+
+.indexpage{
+		height: 80%;
+}
+
+.navbar-link{
+	height: 10%;
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+
+.partial-page{
+	margin-top: 20px;
+}
+
+.container-fluid {
+	display: table;
+	width: 100%;
+	font-weight: normal;
+	text-align: center;
+}
+
+.scrollable-content-vertical{
+	height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#login-form-container{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.logout-text{
+	color: red !important;
+}
+
+.container {
+	height: 80%;
+	width: 100%;
+	border: 1px solid #A3A375;
+	font-weight: normal;
+	text-align: center;
+}
+
+.buttons {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -100px;
+	background: #CCCCCC;
+}
+
+.row-fluid {
+	width: 100%;
+	height: 100%;
+}
+
+.bordering {
+	border-radius: 25px;
+	background: grey;
+	padding: 20px;
+	 box-shadow: 6px 6px yellow;
+	  
+  /* Mozilla */
+  
+}
+
+span {
+    position:relative;   /* IE6/7/8 */
+    color:black;
+    font-size:1em;
+    margin:0;
+}
+.header {
+ width:100%;
+    position:fixed;
+    top:0px;
+    background-color : grey;
+    opacity: 0.7;
+    
+}
+.filterbackground{
+	border-radius: 25px;
+	background: white;
+	padding: 20px;
+	box-shadow: 6px 6px grey;
+	
+}
+.sugbackground{
+	border-radius: 25px;
+    border: 2px solid #73AD21;
+   
+}
+
+.rotate90{
+	-webkit-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	transform:rotate(90deg);
+}

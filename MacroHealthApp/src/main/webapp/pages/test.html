@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <title>Angular.js Basics: Routes Part II | blog.kevinchisholm.com</title>
+</head>
+<body ng-app="mainRouter">
+ 
+  <header>
+    <img src="http://sub1.kevinchisholm.com/blog/images/angularjs-logo-small.png" class="logo">
+    <hgroup>
+      <h1>Angular.js Basics:<span>Routes <i>Part II</i><span></h1>
+      <h2>Working Example</h2>
+      <h3><a href="http://blog.kevinchisholm.com" target="_blank">blog.kevinchisholm.com</a></h3>
+    </hgroup>
+  </header>
+ 
+  <div id="main">
+    <!-- hyperlinks for navigation -->
+    <div class="box floatLeft widthHalf left">
+      <p class="label">Click one of the links below:</p>
+      <nav>
+        <ul>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#hello">Hello</a></li>
+          <li><a href="#goodbye">Goodbye</a></li>
+          <li><a href="#badroute">Bad Route</a></li>
+        </ul>
+      </nav>
+    </div>
+ 
+    <!-- this is the element in which
+    the templates will be injected -->
+    <div ng-view></div>
+  </div>
+ 
+  <!-- load angular.js -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+ 
+  <script>
+    //create the router module
+    var myRouter = angular.module('mainRouter', []),
+ 
+        //the function expression that will 
+        //configure our router module
+        configFunction = function ($routeProvider) {
+        $routeProvider
+ 
+            //when the user clicks <a href="#hello">Hello</a>
+            .when('/hello', {
+                templateUrl: 'message.html',
+                controller: function ($scope) {
+                    $scope.message = 'Hello!';
+                }
+            })
+ 
+            //when the user clicks <a href="#goodbye">Goodbye</a>
+            .when('/goodbye', {
+                templateUrl: 'message.html',
+                controller: function ($scope) {
+                    $scope.message = 'GoodBye!';
+                }
+            })
+ 
+            .otherwise({
+              redirectTo: '/',
+              templateUrl: 'message.html',
+              controller: function ($scope) {
+                    $scope.message = 'Welcome!!';
+                }
+            });
+        };
+ 
+    //call the config method of our router module
+    myRouter.config(['$routeProvider', configFunction]);
+  </script>
+</body>
+</html>

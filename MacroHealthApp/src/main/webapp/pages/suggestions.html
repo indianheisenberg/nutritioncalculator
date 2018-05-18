@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="../js/shared/angular.js"></script>
+<script src="../js/shared/jquery-1.11.3.min.js"></script>
+<script src="../js/shared/angular-route.js"></script> 
+<script src="../js/shared/angular-cookies.js"></script>
+<!-- <script src="../js/shared/angular-mock.js"></script> -->
+<script src="../js/shared/bootstrap.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/user/Properties.js"></script>
+
+
+
+<script type="text/javascript" src="../js/user/Application.js"></script>
+<script type="text/javascript" src="../js/user/Controllers.js"></script>
+
+<script type="text/javascript" src="../js/user/LoginController.js"></script>
+
+<!-- <script src="../js/user/UserProfileController.js"></script> -->
+
+
+<link rel="stylesheet" href="../css/bootstrap.css">
+<style>
+
+body{
+   background-color: white;
+}
+img:hover {
+    border-radius: 15px 50px;
+    box-shadow: 6px 6px 6px pink;
+			-moz-box-shadow: 6px 6px 2px pink;
+			-webkit-box-shadow: 6px 6px 2px pink;
+			-khtml-box-shadow: 6px 6px 2px pink;
+			padding:1px;
+   border:2px solid brown;
+   background-color:pink;
+}
+
+
+</style>
+</head>
+<body ng-app="Application" ng-controller="SuggestionsController" ng-init="suggestedFunc()">
+<nav class="navbar navbar-default " >
+
+		<div class="container-fluid" ng-controller="ProductsController" >
+
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#navbarCollapse">
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand" style="font-family: cursive;">The Clothing App</a>
+				</div>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="nav navbar-nav ">
+        <li class="active"><a href="Home.html">Home</a></li>
+        
+    </ul>
+					
+
+		
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#/" >Welcome<span  style=" font-weight: bold;"> {{userName}}</span></a></li>
+        <li><a href="#/" ng-click="about()">About us </a></li>
+        <li><a href="#/" ng-click="contact()">Contact</a></li>
+        <li><a href="/Clothing/Login.html" class="logout-text">Logout</a></li>
+			</ul>
+			</div>
+		</div>
+
+	</nav>
+
+<div class="container-fluid">
+<marquee direction="left" scrollamount="10"><div class="row"></div><h4 style="color:#C62D42">Happy Shopping!!!</h4></marquee>
+
+<div class="row">
+<div class="col-md-5 col-md-offset-1">
+
+<img height="70%" width="50%" ng-src="{{item.image}}" alt="Image not Available" >
+
+</div>
+
+<div class="col-md-4">
+
+	<h3>Product Details:</h3>
+	<div style="font-size: small;" class="sugbackground">
+	<br>
+
+	
+	<div style="color: black; font-weight: bold;">Item Name:&nbsp;&nbsp;<span style="color: #ff4000; font-weight: bold;" >{{item.name}}</span></div><br>
+	<div style="color: black; font-weight: bold;">Brand:&nbsp;&nbsp;<span style="color: #4000ff; font-weight: bold;" >{{item.brand}}</span></div><br>
+	<div style="color: black; font-weight: bold;">Price: &nbsp;&nbsp;<span style="color: white; font-weight: bold; background-color: red;" class="badge"><del>{{"Rs. "+item.sellingPrice}}</del></span></div><br>
+	<div style="color: black; font-weight: bold;">Discount: &nbsp;&nbsp;<span style="color: #ff0040; font-weight: bold; ">{{item.discount}}% off</span></div><br>
+	<div style="color: black; font-weight: bold;">Discounted Price: &nbsp;&nbsp;<span style="color: white; font-weight: bold; background-color: green;" class="badge">Rs.&nbsp;{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}</span></div><br>
+	<div style="color: black; font-weight: bold; text-align: center;">Specification:</div>
+	<table class="table table-bordered table-responsive table-condensed" style="table-layout: auto;" >
+	<tr>
+	<th style="text-align: center; "><h5 style="font-weight: bold;">Ideal For</h5></th>
+	
+	<th style="text-align: center; "><h5 style="font-weight: bold;">Size</h5></th>
+	</tr>
+	<tr>
+	<td style="text-align: center; font-family: cursive; font-size: small;">{{str1}}</td>
+	
+	<td style="text-align: center;  font-family: cursive; font-size: small;">{{str3}}</td>
+	</tr>
+	
+	</table>
+	
+	</div>
+</div>
+</div>
+<hr>
+<div class="row">
+<div class="col-md-offset-1">
+<h4 style="font-family: cursive; text-align: left; ">You may also like:</h4><br>
+<marquee direction="left" loop="1" scrollamount="100">
+
+    <div ng-controller="ProductsController">
+	<div class="col-md-3" ng-repeat="item in suggestedClothes">
+	<a href="#/suggest" ng-click="selectedItem=item;suggestionsFunction(selectedItem)">
+	<img height="100" width="70" ng-src="{{item.image}}" alt="Image not Available" class="img-thumbnail" onmouseover="this.width='130',this.height='90'" onmouseout="this.width='100',this.height='70'"><br></a>
+	<p>Product Details:</p>
+	<div style="font-size: xx-small; padding: 5px" class="sugbackground"><br>
+	<div style="color: black; font-weight: bold;">Item Name:&nbsp;&nbsp;<span style="color: #ff4000; font-weight: bold;" >{{item.name}}</span></div><br>
+	<div style="color: black; font-weight: bold;">Brand:&nbsp;&nbsp;<span style="color: #4000ff; font-weight: bold;" >{{item.brand}}</span></div><br>
+	<div style="color: black; font-weight: bold;">Price: &nbsp;&nbsp;<span style="color: white; font-weight: bold; background-color: red;" class="badge"><del>{{"Rs. "+item.sellingPrice}}</del></span></div><br>
+	<div style="color: black; font-weight: bold;">Discount: &nbsp;&nbsp;<span style="color: #ff0040; font-weight: bold; ">{{item.discount}}% off</span></div><br>
+	<div style="color: black; font-weight: bold;">Discounted Price: &nbsp;&nbsp;<span style="color: white; font-weight: bold; background-color: green;" class="badge">Rs.&nbsp;{{item.sellingPrice-(item.sellingPrice*item.discount/100)}}</span></div><br>
+	
+	</div>
+	
+	 <div ng-show="!(suggestedClothes.length)">
+              <h3 style="color: gray;"><div align="center">Sorry! No Suggestion Items Found</div></h3>
+	</div>
+	<div class="text-info" ng-show="message" ng-bind="message"></div>
+</div>
+</div>
+</marquee>
+</div>
+<br>
+<br>
+<div ng-show="!(suggestedClothes.length)">
+              <h4 style="color: red;"><div align="center">Sorry! No Suggestion Items Found</h4></div></div>
+	</div>
+</body>
+</html>
