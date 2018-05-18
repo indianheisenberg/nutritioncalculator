@@ -7,6 +7,7 @@ public class Item {
 	
 	private String name;
 	private String calories;
+	
 	private String protein;
 	private String fat;
 	private String carbs;
@@ -41,11 +42,7 @@ public class Item {
 	public String getCarbs() {
 		return carbs;
 	}
-	@Override
-	public String toString() {
-		return "Item [name=" + name + ", calories=" + calories + ", protien=" + protein + ", fat=" + fat
-				+ ", carbs=" + carbs + ", fiber=" + fiber + "]";
-	}
+	
 	public void setCarbs(String carbs) {
 		this.carbs = carbs;
 	}
@@ -56,7 +53,11 @@ public class Item {
 		this.fiber = fiber;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Item [name=" + name + ", calories=" + calories + ", protein=" + protein + ", fat=" + fat + ", carbs="
+				+ carbs + ", fiber=" + fiber + "]";
+	}
 	
 	
 }
