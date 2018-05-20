@@ -1,5 +1,7 @@
 package com.macro.MacroHealthApp.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,6 +55,15 @@ import com.mongodb.ParallelScanOptions;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteResult;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
+
 @RestController
 @RequestMapping("/rest")
 @CrossOrigin("*")
@@ -96,7 +107,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/saveItem", method = RequestMethod.POST)
 	@Consumes("application/json")
-	public Item saveItem(@RequestBody Item item, UriComponentsBuilder ucBuilder){
+	public Item saveItem(@RequestBody Item item, UriComponentsBuilder ucBuilder) throws IOException{
 		//System.out.println(s);
 		Item newItem=new Item();
 		System.out.println("inside saveitem");
@@ -114,6 +125,7 @@ public class MainController {
 		newItem=itemRepo.save(newItem);
 		
 		System.out.println(newItem);
+		
 		
 		
 		

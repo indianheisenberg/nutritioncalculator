@@ -142,6 +142,8 @@ hgroup h2.lead {
 <script type="text/javascript" src="../dist/user/js/Controllers.js"></script>
 <script type="text/javascript" src="../dist/MDB-Free/js/mdb.min.js"></script>
 
+<script type="text/javascript" src="../dist/user/js/common.js"></script>
+
 
 
 </head>
@@ -205,23 +207,24 @@ hgroup h2.lead {
 				<br/>
 				<br/>
 				<br/>	
+				
 					<a href="#" title="Lorem ipsum" class="thumbnail"><img class="img-responsive"
-						src="../dist/user/img/paneer.jpg" alt="chesse" width="250px" height="250px" /></a>
+						src="pixel.gif" onload="this.onload=null; this.src=getImagePath();"  id="iimage" alt="chesse" width="250px" height="250px" /></a>
 				</div>
 
 				<div class="col-xs-12 col-sm-12 col-md-7 excerpet"
 					style="border-left: thin solid #ccc;">
 					
 					<div class="form-group">
-					
-						<span class="h3">{{item.name}}</span> &nbsp;&nbsp;
+						<input type="hidden" value="{{item.name}}" id="iname">
+						<span  class="h3">{{item.name}}</span> &nbsp;&nbsp;
 					
 					Serving (gm):&nbsp;<input type="text" class="col-1 form-control-sm" ng-model="serving">	
 					</div>
 
 					
 					
-					<table class="table table-hover table-bordered table-striped ">
+					<table class="table table-hover table-bordered table-striped table-sm">
   <thead>
     <tr>
       
@@ -234,31 +237,31 @@ hgroup h2.lead {
   <tr>
       
       <td >Calories</td>
-      <td>{{item.calories}}</td>
+      <td>{{(item.calories/100)*serving}}</td>
     </tr>
   
     <tr>
       
       <td>Protein</td>
-      <td>{{item.protein}}</td>
+      <td>{{(item.protein/100)*serving}}</td>
      
     </tr>
     <tr>
     
       <td>Carbs</td>
-      <td>{{item.carbs}}</td>
+      <td>{{(item.carbs/100)*serving}}</td>
       
     </tr>
     <tr>
       
       <td >Fat</td>
-      <td>{{item.fat}}</td>
+      <td>{{(item.fat/100)*serving}}</td>
     </tr>
     
     <tr>
       
       <td >Fiber</td>
-      <td>{{item.fiber}}</td>
+      <td>{{(item.fiber/100)*serving}}</td>
     </tr>
     
   </tbody>

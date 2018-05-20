@@ -3,25 +3,13 @@
 
 var application = angular.module("myApp", [ 'ngRoute', 'ngCookies' ]);
 
-application.config([ '$routeProvider', function($routeProvider) {
+application.config([ '$routeProvider', '$locationProvider',function($routeProvider,$locationProvider) {
+	$locationProvider.hashPrefix('');
 	$routeProvider.when('/main', {
 		templateURL : '../../../pages/main.html',
-	}).when('/calculateBMR', {
-		redirectTo : 'calculateBMR.html',
-		templateURL : "calculateBMR.html",
-	}).when('/calculateMacros', {
-		templateURL : 'home2.html'
-	}).when('/buildDietPlan', {
-		templateURL : 'home2.html'
-	}).when('/getTips', {
-		templateURL : 'home2.html'
-	}).when('/buildWorkoutPlan', {
-		templateURL : 'home2.html'
-	}).when('/getConsultation', {
-		templateURL : 'home2.html'
 	}).otherwise({
 		redirectTo : '/',
-		templateUrl : '../../../pages/main.html',
+		templateUrl : 'main.html',
 	});
 } ]);
 
@@ -53,6 +41,11 @@ application.controller("MacrosCalculatorController", function($http, $scope) {
 	}
 
 	
+	$scope.getImage=function(itemName){
+		console.log(itemName);
+		
+		return '../dist/user/img/'+itemName+'.jpg';
+	}
 
 
 });

@@ -6,12 +6,12 @@ public class Item {
 
 	
 	private String name;
-	private String calories;
+	private Double calories;
 	
-	private String protein;
-	private String fat;
-	private String carbs;
-	private String fiber;
+	private Double protein;
+	private Double fat;
+	private Double carbs;
+	private Double fiber;
 	
 	
 	
@@ -21,35 +21,35 @@ public class Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCalories() {
+	public Double getCalories() {
 		return calories;
 	}
-	public void setCalories(String calories) {
+	public void setCalories(Double calories) {
 		this.calories = calories;
 	}
-	public String getProtein() {
+	public Double getProtein() {
 		return protein;
 	}
-	public void setProtein(String protein) {
+	public void setProtein(Double protein) {
 		this.protein = protein;
 	}
-	public String getFat() {
+	public Double getFat() {
 		return fat;
 	}
-	public void setFat(String fat) {
+	public void setFat(Double fat) {
 		this.fat = fat;
 	}
-	public String getCarbs() {
+	public Double getCarbs() {
 		return carbs;
 	}
 	
-	public void setCarbs(String carbs) {
+	public void setCarbs(Double carbs) {
 		this.carbs = carbs;
 	}
-	public String getFiber() {
+	public Double getFiber() {
 		return fiber;
 	}
-	public void setFiber(String fiber) {
+	public void setFiber(Double fiber) {
 		this.fiber = fiber;
 	}
 	
